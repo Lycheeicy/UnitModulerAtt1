@@ -30,11 +30,15 @@ export function getOrgs(data){
   })
 }
 
-export function json2array(data){
-  var length=eval(data).length;
-  var array=[];
-  for(var i=0;i<length;i++){
-    array[i]=data[i].orgcontent;
+export async function promise2array(data){
+  let obj=[];
+  let array=[];
+  await data.then(res=>{
+    obj=res.data;
+  })
+  for(var i in obj){
+    array.push(obj[i]);
   }
+  console.log(array);
   return array;
 }
