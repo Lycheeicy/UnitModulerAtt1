@@ -18,3 +18,23 @@ export function uploadFile(data){
     dataType: 'form'
   })
 }
+
+export function getOrgs(data){
+  return axios({
+    method:'get',
+    params:{
+      UnitID:data
+    },
+    url:'/api/UnitModuler/getOrgs',
+    dataType: 'json'
+  })
+}
+
+export function json2array(data){
+  var length=eval(data).length;
+  var array=[];
+  for(var i=0;i<length;i++){
+    array[i]=data[i].orgcontent;
+  }
+  return array;
+}
