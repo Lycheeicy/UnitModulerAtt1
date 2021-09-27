@@ -30,15 +30,10 @@ export function getOrgs(data){
   })
 }
 
-export async function promise2array(data){
-  let obj=[];
+export function obj2array(data){
   let array=[];
-  await data.then(res=>{
-    obj=res.data;
-  })
-  for(var i in obj){
-    array.push(obj[i]);
+  for(var i in data){
+    array.push(data[i]);
   }
-  console.log(array);
   return array;
 }

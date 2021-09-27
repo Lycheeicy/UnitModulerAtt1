@@ -18,7 +18,7 @@
 
 <script>
 import { defineComponent, ref, onMounted } from 'vue'
-import {getOrgs,  promise2array} from '../api/api'
+import {getOrgs, obj2array, promise2array} from '../api/api'
 export default defineComponent({
   name: "OrgSearch",
   props:['thisUnitID'],
@@ -47,7 +47,13 @@ export default defineComponent({
       }
     }
     const loadAll = () => {
-      return promise2array(getOrgs(props.thisUnitID));
+      let array=[];
+      getOrgs(props.thisUnitID).then(res=>{
+        array=obj2array(res.data);
+        console.log(array)
+        return array;
+      })
+
     }
     const handleSelect = (item) => {
       console.log(item)
