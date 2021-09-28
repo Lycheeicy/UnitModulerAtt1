@@ -34,7 +34,7 @@ export default defineComponent({
       var results = queryString
           ? orgs.value.filter(createFilter(queryString))
           : orgs.value
-      // 调用 callback 返回建议列表的数据
+       //调用 callback 返回建议列表的数据
       cb(results)
     }
     const createFilter = (queryString) => {
@@ -46,14 +46,12 @@ export default defineComponent({
         )
       }
     }
-    const loadAll = () => {
+    const loadAll = async () => {
       let array=[];
-      getOrgs(props.thisUnitID).then(res=>{
+      await getOrgs(props.thisUnitID).then(res=>{
         array=obj2array(res.data);
-        console.log(array)
-        return array;
       })
-
+      return array;
     }
     const handleSelect = (item) => {
       console.log(item)
@@ -63,8 +61,8 @@ export default defineComponent({
       console.log(ev)
     }
 
-    onMounted(() => {
-      orgs.value = loadAll()
+    onMounted(async () => {
+      orgs.value = await loadAll()
     })
 
     return {
