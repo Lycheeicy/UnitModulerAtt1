@@ -10,8 +10,7 @@
       <i class="el-icon-edit el-input__icon" @click="handleIconClick"> </i>
     </template>
     <template #default="{ item }">
-      <div class="name">{{ item.value }}</div>
-      <span class="addr">{{ item.address }}</span>
+      <span class="orgs">{{ item}}</span>
     </template>
   </el-autocomplete>
 </template>
@@ -35,12 +34,14 @@ export default defineComponent({
           ? orgs.value.filter(createFilter(queryString))
           : orgs.value
        //调用 callback 返回建议列表的数据
+      console.log("results is "+results)
       cb(results)
     }
     const createFilter = (queryString) => {
-      return (restaurant) => {
+      return (org) => {
+        console.log("org is "+org)
         return (
-            restaurant.value
+            org
                 .toLowerCase()
                 .indexOf(queryString.toLowerCase()) === 0
         )
@@ -63,6 +64,7 @@ export default defineComponent({
 
     onMounted(async () => {
       orgs.value = await loadAll()
+      console.log("now orgs.value is "+orgs.value)
     })
 
     return {
@@ -86,7 +88,7 @@ export default defineComponent({
   text-overflow: ellipsis;
   overflow: hidden;
 }
-.my-autocomplete li .addr {
+.my-autocomplete li .orgs {
   font-size: 12px;
   color: #b4b4b4;
 }
